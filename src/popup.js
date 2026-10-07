@@ -11,7 +11,8 @@ function showError(message) {
 async function openWithFile(file) {
   if (!file) return;
   if (!file.type.startsWith('image/')) return showError('请选择图片文件');
-  if (file.size > 10 * 1024 * 1024) return showError('图片请小于 10 MB');
+  // storage.session has a 10 MB quota; base64 expands the file by about a third.
+  if (file.size > 5 * 1024 * 1024) return showError('图片请小于 5 MB');
   const reader = new FileReader();
   reader.onload = async () => {
     const id = crypto.randomUUID();
