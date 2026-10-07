@@ -36,3 +36,10 @@
 - 图标：`public/icons/128.png`
 - 截图：`store/screenshot-scan.png`、`store/screenshot-generate.png`
 - 宣传图：`store/promo-small.png`
+
+## 发布页面链接
+
+- 隐私政策：https://github.com/dushaobindoudou/qr-snap-extension/blob/main/PRIVACY.md
+- 主页：https://github.com/dushaobindoudou/qr-snap-extension
+- 支持：https://github.com/dushaobindoudou/qr-snap-extension/issues
+- 安装包：https://github.com/dushaobindoudou/qr-snap-extension/releases/download/v0.1.0/qr-snap-extension.zip
