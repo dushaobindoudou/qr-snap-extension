@@ -1,1 +1,37 @@
-<!doctype html><html lang="zh-CN"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>码一下 QR</title></head><body><main id="app" class="popup"><header><span class="logo">▦</span><div><h1>码一下 QR</h1><p>网页上的二维码，随手识别</p></div></header><section><h2>识别</h2><button id="capture" class="primary">截图当前页面并框选</button><button id="upload">上传图片识别</button><input id="file" type="file" accept="image/*" hidden><p class="hint">也可以在网页图片上右键，选择「码一下 QR → 识别这张图片」。</p></section><section><h2>生成</h2><label for="content">网址或文字</label><textarea id="content" rows="3" placeholder="输入网址或文字"></textarea><div class="row"><button id="current">填入当前网址</button><button id="generate" class="primary">生成二维码</button></div></section><footer>本地处理 · 无需账号</footer></main><script type="module" src="/src/popup.js"></script></body></html>
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title data-i18n="shortName">码一下 QR</title>
+  </head>
+  <body>
+    <main id="app" class="popup">
+      <header>
+        <span class="logo">▦</span>
+        <div>
+          <h1 data-i18n="shortName">码一下 QR</h1>
+          <p data-i18n="popupTagline">网页上的二维码，随手识别</p>
+        </div>
+      </header>
+      <section>
+        <h2 data-i18n="scanHeading">识别二维码</h2>
+        <button id="capture" class="primary" data-i18n="captureButton">截图当前页面并框选</button>
+        <button id="upload" data-i18n="uploadButton">上传图片识别</button>
+        <input id="file" type="file" accept="image/*" hidden>
+        <p class="hint" data-i18n="popupHint">也可以在网页图片上右键，选择「码一下 QR → 识别这张图片」。</p>
+      </section>
+      <section>
+        <h2 data-i18n="generateHeading">生成二维码</h2>
+        <label for="content" data-i18n="contentLabel">网址或文字</label>
+        <textarea id="content" rows="3" placeholder="输入网址或文字" data-i18n-placeholder="contentPlaceholder"></textarea>
+        <div class="row">
+          <button id="current" data-i18n="currentButton">填入当前网址</button>
+          <button id="generate" class="primary" data-i18n="generateButton">生成二维码</button>
+        </div>
+      </section>
+      <footer data-i18n="popupFooter">本地处理 · 无需账号</footer>
+    </main>
+    <script type="module" src="/src/popup.js"></script>
+  </body>
+</html>

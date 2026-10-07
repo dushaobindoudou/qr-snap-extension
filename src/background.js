@@ -1,3 +1,5 @@
+import { t } from './i18n.js';
+
 const MENU = {
   parent: 'qr-snap',
   image: 'qr-snap-image',
@@ -9,12 +11,12 @@ const MENU = {
 
 async function createMenus() {
   await chrome.contextMenus.removeAll();
-  chrome.contextMenus.create({ id: MENU.parent, title: '码一下 QR', contexts: ['page', 'image', 'link', 'selection'] });
-  chrome.contextMenus.create({ id: MENU.image, parentId: MENU.parent, title: '识别这张图片的二维码', contexts: ['image'] });
-  chrome.contextMenus.create({ id: MENU.area, parentId: MENU.parent, title: '截图当前画面并框选识别', contexts: ['page', 'image', 'link', 'selection'] });
-  chrome.contextMenus.create({ id: MENU.page, parentId: MENU.parent, title: '生成当前网址二维码', contexts: ['page'] });
-  chrome.contextMenus.create({ id: MENU.link, parentId: MENU.parent, title: '生成链接二维码', contexts: ['link'] });
-  chrome.contextMenus.create({ id: MENU.selection, parentId: MENU.parent, title: '生成选中文字二维码', contexts: ['selection'] });
+  chrome.contextMenus.create({ id: MENU.parent, title: t('menuParent'), contexts: ['page', 'image', 'link', 'selection'] });
+  chrome.contextMenus.create({ id: MENU.image, parentId: MENU.parent, title: t('menuImage'), contexts: ['image'] });
+  chrome.contextMenus.create({ id: MENU.area, parentId: MENU.parent, title: t('menuArea'), contexts: ['page', 'image', 'link', 'selection'] });
+  chrome.contextMenus.create({ id: MENU.page, parentId: MENU.parent, title: t('menuPage'), contexts: ['page'] });
+  chrome.contextMenus.create({ id: MENU.link, parentId: MENU.parent, title: t('menuLink'), contexts: ['link'] });
+  chrome.contextMenus.create({ id: MENU.selection, parentId: MENU.parent, title: t('menuSelection'), contexts: ['selection'] });
 }
 
 chrome.runtime.onInstalled.addListener(createMenus);
@@ -27,7 +29,7 @@ async function openResult(payload) {
 }
 
 async function capture(tab) {
-  if (!tab?.windowId) throw new Error('无法找到当前窗口');
+  if (!tab?.windowId) throw new Error(t('currentWindowUnavailable'));
   return chrome.tabs.captureVisibleTab(tab.windowId, { format: 'png' });
 }
 
@@ -70,7 +72,7 @@ async function handleMenu(info, tab) {
 
 chrome.contextMenus.onClicked.addListener((info, tab) => {
   handleMenu(info, tab).catch(async (error) => {
-    await openResult({ kind: 'error', message: error.message || '操作失败，请重试' });
+    await openResult({ kind: 'error', message: error.message || t('actionFailed') });
   });
 });
 

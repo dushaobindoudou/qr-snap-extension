@@ -1,7 +1,9 @@
 import './style.css';
 import { decodeRegion, generate } from './qr.js';
+import { localizeDocument, t } from './i18n.js';
 
 const $ = (id) => document.getElementById(id);
+localizeDocument();
 const params = new URLSearchParams(location.search);
 const id = params.get('id');
 let image;
@@ -16,21 +18,21 @@ function status(message, isError = false) {
 function decoded(content) {
   const container = $('decoded');
   container.replaceChildren();
-  if (!content) return status('未识别到二维码。可以框选二维码区域，或换一张清晰的图片。', true);
-  status('识别成功');
+  if (!content) return status(t('scanNotFound'), true);
+  status(t('scanSuccess'));
   const heading = document.createElement('h3');
-  heading.textContent = '识别结果';
+  heading.textContent = t('scanResult');
   const value = document.createElement('pre');
   value.textContent = content;
   const copy = document.createElement('button');
-  copy.textContent = '复制内容';
-  copy.onclick = async () => { await navigator.clipboard.writeText(content); status('已复制内容'); };
+  copy.textContent = t('copyContent');
+  copy.onclick = async () => { await navigator.clipboard.writeText(content); status(t('contentCopied')); };
   container.append(heading, value, copy);
   try {
     const url = new URL(content);
     if (['http:', 'https:'].includes(url.protocol)) {
       const open = document.createElement('button');
-      open.textContent = '打开链接';
+      open.textContent = t('openLink');
       open.onclick = () => chrome.tabs.create({ url: url.href });
       container.append(open);
     }
@@ -39,14 +41,14 @@ function decoded(content) {
 
 async function scan(rect) {
   try { decoded(await decodeRegion(image, rect)); }
-  catch (error) { status(`图片处理失败：${error.message}`, true); }
+  catch (error) { status(`${t('imageProcessFailed')}: ${error.message}`, true); }
 }
 
 async function loadImage(dataUrl) {
   image = $('source-image');
   image.src = dataUrl;
   try { await image.decode(); }
-  catch { return status('无法读取这张图片，请换一张', true); }
+  catch { return status(t('imageReadFailed'), true); }
   await scan();
 }
 
@@ -97,9 +99,7 @@ function bindSelection() {
 
 async function scanImage(payload) {
   $('scan-section').hidden = false;
-  $('scan-help').textContent = payload.source === 'image'
-    ? '已截取当前页面，优先识别右键图片区域。若没有识别到，请用鼠标框选二维码。'
-    : '拖动鼠标框选二维码区域；也可以识别整张图。';
+  $('scan-help').textContent = t(payload.source === 'image' ? 'scanImageHelp' : 'scanAreaHelp');
   bindSelection();
   await loadImage(payload.screenshot);
   if (payload.rects?.length) {
@@ -117,7 +117,7 @@ async function scanImage(payload) {
   $('file').onchange = (event) => {
     const file = event.target.files[0];
     if (!file) return;
-    if (!file.type.startsWith('image/') || file.size > 10 * 1024 * 1024) return status('请选择小于 10 MB 的图片', true);
+    if (!file.type.startsWith('image/') || file.size > 10 * 1024 * 1024) return status(t('imageUnder10Mb'), true);
     const reader = new FileReader();
     reader.onload = () => loadImage(reader.result);
     reader.readAsDataURL(file);
@@ -126,9 +126,9 @@ async function scanImage(payload) {
 
 async function renderQr() {
   const content = $('content').value.trim();
-  if (!content) return status('请输入网址或文字', true);
-  try { await generate($('qr-canvas'), content); status('二维码已生成'); }
-  catch (error) { status(`生成失败：${error.message}`, true); }
+  if (!content) return status(t('enterContent'), true);
+  try { await generate($('qr-canvas'), content); status(t('qrGenerated')); }
+  catch (error) { status(`${t('generateFailed')}: ${error.message}`, true); }
 }
 
 async function generateQr(payload) {
@@ -146,20 +146,20 @@ async function generateQr(payload) {
     try {
       const blob = await new Promise((resolve) => $('qr-canvas').toBlob(resolve));
       await navigator.clipboard.write([new ClipboardItem({ 'image/png': blob })]);
-      status('已复制二维码图片');
-    } catch (error) { status(`复制失败：${error.message}`, true); }
+      status(t('imageCopied'));
+    } catch (error) { status(`${t('copyFailed')}: ${error.message}`, true); }
   };
 }
 
 async function main() {
-  if (!id) return status('缺少操作数据，请重新打开插件', true);
+  if (!id) return status(t('missingOperation'), true);
   const stored = await chrome.storage.session.get(id);
   const payload = stored[id];
   await chrome.storage.session.remove(id);
-  if (!payload) return status('操作数据已过期，请重新打开插件', true);
+  if (!payload) return status(t('operationExpired'), true);
   if (payload.kind === 'scan') await scanImage(payload);
   else if (payload.kind === 'generate') await generateQr(payload);
-  else status(payload.message || '操作失败，请重试', true);
+  else status(payload.message || t('actionFailed'), true);
 }
 
-main().catch((error) => status(error.message || '操作失败', true));
+main().catch((error) => status(error.message || t('actionFailed'), true));

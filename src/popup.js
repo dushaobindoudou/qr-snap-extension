@@ -1,6 +1,8 @@
 import './style.css';
+import { localizeDocument, t } from './i18n.js';
 
 const $ = (id) => document.getElementById(id);
+localizeDocument();
 
 function showError(message) {
   const hint = document.querySelector('.hint');
@@ -10,9 +12,9 @@ function showError(message) {
 
 async function openWithFile(file) {
   if (!file) return;
-  if (!file.type.startsWith('image/')) return showError('请选择图片文件');
+  if (!file.type.startsWith('image/')) return showError(t('chooseImageFile'));
   // storage.session has a 10 MB quota; base64 expands the file by about a third.
-  if (file.size > 5 * 1024 * 1024) return showError('图片请小于 5 MB');
+  if (file.size > 5 * 1024 * 1024) return showError(t('imageUnder5Mb'));
   const reader = new FileReader();
   reader.onload = async () => {
     const id = crypto.randomUUID();
@@ -27,7 +29,7 @@ async function openWithFile(file) {
 
 $('capture').addEventListener('click', async () => {
   const response = await chrome.runtime.sendMessage({ type: 'capture' });
-  if (!response?.ok) showError(response?.message || '截图失败');
+  if (!response?.ok) showError(response?.message || t('captureFailed'));
   else window.close();
 });
 $('upload').addEventListener('click', () => $('file').click());
@@ -35,11 +37,11 @@ $('file').addEventListener('change', (event) => openWithFile(event.target.files[
 $('current').addEventListener('click', async () => {
   const [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
   $('content').value = tab?.url || '';
-  if (!$('content').value) showError('无法读取当前页面网址');
+  if (!$('content').value) showError(t('currentUrlUnavailable'));
 });
 $('generate').addEventListener('click', async () => {
   const content = $('content').value.trim();
-  if (!content) return showError('请先输入网址或文字');
+  if (!content) return showError(t('enterContentFirst'));
   const id = crypto.randomUUID();
   await chrome.storage.session.set({ [id]: { kind: 'generate', content } });
   await chrome.tabs.create({ url: chrome.runtime.getURL(`result.html?id=${id}`) });

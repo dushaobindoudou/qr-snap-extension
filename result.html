@@ -1,1 +1,49 @@
-<!doctype html><html lang="zh-CN"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>码一下 QR</title></head><body><main id="app" class="result"><header><span class="logo">▦</span><div><h1>码一下 QR</h1><p id="subtitle">二维码识别与生成</p></div></header><div id="status" role="status"></div><section id="scan-section" hidden><h2>识别二维码</h2><p id="scan-help" class="hint"></p><div id="image-wrap"><img id="source-image" alt="等待识别的截图"><div id="selection"></div></div><div class="row"><button id="scan-all">识别整张图</button><button id="choose-file">换一张图片</button><input id="file" type="file" accept="image/*" hidden></div><div id="decoded"></div></section><section id="generate-section" hidden><h2>生成二维码</h2><label for="content">网址或文字</label><textarea id="content" rows="3"></textarea><div class="row"><button id="regenerate" class="primary">重新生成</button></div><canvas id="qr-canvas" aria-label="生成的二维码"></canvas><div class="row"><button id="copy-image">复制图片</button><button id="download">下载 PNG</button></div></section><footer>所有图片与内容仅在此浏览器本地处理</footer></main><script type="module" src="/src/result.js"></script></body></html>
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title data-i18n="shortName">码一下 QR</title>
+  </head>
+  <body>
+    <main id="app" class="result">
+      <header>
+        <span class="logo">▦</span>
+        <div>
+          <h1 data-i18n="shortName">码一下 QR</h1>
+          <p id="subtitle" data-i18n="resultSubtitle">二维码识别与生成</p>
+        </div>
+      </header>
+      <div id="status" role="status"></div>
+      <section id="scan-section" hidden>
+        <h2 data-i18n="scanHeading">识别二维码</h2>
+        <p id="scan-help" class="hint"></p>
+        <div id="image-wrap">
+          <img id="source-image" alt="等待识别的截图" data-i18n-alt="sourceImageAlt">
+          <div id="selection"></div>
+        </div>
+        <div class="row">
+          <button id="scan-all" data-i18n="scanAllButton">识别整张图</button>
+          <button id="choose-file" data-i18n="chooseFileButton">换一张图片</button>
+          <input id="file" type="file" accept="image/*" hidden>
+        </div>
+        <div id="decoded"></div>
+      </section>
+      <section id="generate-section" hidden>
+        <h2 data-i18n="generateHeading">生成二维码</h2>
+        <label for="content" data-i18n="contentLabel">网址或文字</label>
+        <textarea id="content" rows="3"></textarea>
+        <div class="row">
+          <button id="regenerate" class="primary" data-i18n="regenerateButton">重新生成</button>
+        </div>
+        <canvas id="qr-canvas" aria-label="生成的二维码" data-i18n-aria-label="canvasLabel"></canvas>
+        <div class="row">
+          <button id="copy-image" data-i18n="copyImageButton">复制图片</button>
+          <button id="download" data-i18n="downloadButton">下载 PNG</button>
+        </div>
+      </section>
+      <footer data-i18n="resultFooter">所有图片与内容仅在此浏览器本地处理</footer>
+    </main>
+    <script type="module" src="/src/result.js"></script>
+  </body>
+</html>
