@@ -1,0 +1,11 @@
+{
+  "manifest_version": 3,
+  "name": "码一下 QR · 网页二维码识别与生成",
+  "short_name": "码一下 QR",
+  "version": "0.1.0",
+  "description": "右键识别网页图片二维码，截图框选识别，一键生成网址或选中文字的二维码。所有处理均在本地完成。",
+  "permissions": ["activeTab", "contextMenus", "scripting", "storage"],
+  "background": { "service_worker": "background.js", "type": "module" },
+  "action": { "default_title": "码一下 QR", "default_popup": "popup.html" },
+  "icons": { "16": "icons/16.png", "32": "icons/32.png", "48": "icons/48.png", "128": "icons/128.png" }
+}

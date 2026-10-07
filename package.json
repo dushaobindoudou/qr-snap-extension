@@ -1,0 +1,21 @@
+{
+  "name": "qr-snap-extension",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vite build --watch",
+    "build": "vite build && cp public/manifest.json dist/manifest.json && cp -R public/icons dist/icons",
+    "check": "node --check src/background.js && node --check src/popup.js && node --check src/result.js && node --check src/qr.js",
+    "test": "npm run build && node tests/extension.test.js",
+    "package": "npm run build && cd dist && zip -qr ../qr-snap-extension.zip ."
+  },
+  "dependencies": {
+    "jsqr": "^1.4.0",
+    "qrcode": "^1.5.4"
+  },
+  "devDependencies": {
+    "playwright": "^1.63.0",
+    "vite": "^7.1.0"
+  }
+}
