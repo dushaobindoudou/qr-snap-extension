@@ -5,10 +5,10 @@
   "type": "module",
   "scripts": {
     "dev": "vite build --watch",
-    "build": "vite build && cp public/manifest.json dist/manifest.json && cp -R public/icons dist/icons",
+    "build": "vite build",
     "check": "node --check src/background.js && node --check src/popup.js && node --check src/result.js && node --check src/qr.js",
     "test": "npm run build && node tests/extension.test.js",
-    "package": "npm run build && cd dist && zip -qr ../qr-snap-extension.zip ."
+    "package": "npm run build && rm -f qr-snap-extension.zip && cd dist && zip -qr ../qr-snap-extension.zip ."
   },
   "dependencies": {
     "jsqr": "^1.4.0",
