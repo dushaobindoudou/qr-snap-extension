@@ -1,6 +1,6 @@
 # 更新日志 / Changelog
 
-## 0.2.0 — 未发布 / Unreleased
+## 0.2.0 — 2026-10-08 (GitHub Release)
 
 - 简体中文：扩展名称、右键菜单、弹窗、结果页及提示信息支持中英文，并跟随 Chrome 界面语言。
 - English: Localized the extension name, context menus, popup, result page, and messages for Chinese and English Chrome interfaces.
