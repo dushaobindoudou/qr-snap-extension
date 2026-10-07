@@ -4,7 +4,7 @@
 
 Recognize QR codes in website images from the right-click menu, scan a selected area of the visible page, and generate QR codes for URLs, links, or selected text. Processing stays in the browser; no account or server is required.
 
-> The current `main` branch contains the bilingual v0.2.0 source. The v0.1.0 package under Chrome Web Store review still has a Chinese interface; the bilingual interface will be released in a later store update. Download the packaged [v0.1.0 release](https://github.com/dushaobindoudou/qr-snap-extension/releases/tag/v0.1.0) or load the latest source below.
+> The current `main` branch contains the bilingual v0.2.0 source. The submitted v0.1.0 store package still has a Chinese interface; the bilingual interface will be delivered in a later store update. Download the packaged [v0.1.0 release](https://github.com/dushaobindoudou/qr-snap-extension/releases/tag/v0.1.0) or load the latest source below.
 
 ![Screenshot scanning interface](store/screenshot-scan.png)
 

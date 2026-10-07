@@ -4,7 +4,7 @@
 
 在网页图片上右键识别二维码，截取当前可见页面并框选识别，也可以为网址、链接和选中文字生成二维码。所有处理都在浏览器本地完成，无需账号或服务器。
 
-> 当前 `main` 分支为支持中英文界面的 v0.2.0 源码。Chrome 应用商店审核中的 v0.1.0 版本仍为中文界面；双语版本将在后续商店更新中发布。可从 [v0.1.0 Release](https://github.com/dushaobindoudou/qr-snap-extension/releases/tag/v0.1.0) 下载已打包版本，或按下方步骤加载最新源码。
+> 当前 `main` 分支为支持中英文界面的 v0.2.0 源码。已提交商店的 v0.1.0 包仍为中文界面；双语版本将通过后续商店更新交付。可从 [v0.1.0 Release](https://github.com/dushaobindoudou/qr-snap-extension/releases/tag/v0.1.0) 下载已打包版本，或按下方步骤加载最新源码。
 
 ![截图识别界面](store/screenshot-scan.png)
 
